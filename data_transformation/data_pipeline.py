@@ -3,7 +3,7 @@ from pathlib import Path
 from data_cleaning import clean_data
 
 """
-Pipeline is to be used when there are updates to Raw Data, RPI, or HDB Features
+Pipeline can be used when there are updates to Raw Data or HDB Features
 """
 
 # Default File Paths
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     df_clean = clean_data(df_raw)
     df_clean.to_csv(CLEANDATA_CSV, index=False)
 
-    # Add Engineered Features (Distances, RPI) to obtain Final Dataset
+    # Add Engineered Features (based on Address) to obtain Final Dataset
     hdbs = pd.read_csv(HDB_FEATURES_CSV)
     final_df = pd.merge(df_clean, hdbs[["Address", "Distance_MRT", "Distance_Mall", "Within_1km_of_Pri"]], on='Address', how='left')
 
