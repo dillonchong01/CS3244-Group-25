@@ -42,13 +42,11 @@ def clean_data(df):
         df_clean["storey_range"].str.extract(r"^(\d+)")[0], errors="coerce"
     )
 
-    # Convert 'month' column to Quarter
-    df_clean['Quarter'] = (
-        pd.to_datetime(df_clean['month'], format='%Y-%m', errors='coerce')
-        .dt.to_period('Q')
-        .astype(str)
-        .str.replace(r'Q', '-Q')
-    )
+    # Convert 'month' column to Year and Month
+    df_clean['month_dt'] = pd.to_datetime(df_clean['month'], format='%Y-%m', errors='coerce')
+    df_clean['Year'] = df_clean['month_dt'].dt.year
+    df_clean['Month'] = df_clean['month_dt'].dt.month
+
 
     # Express Remaining Lease in Years
     df_clean["Remaining_Lease"] = df_clean["remaining_lease"].apply(
@@ -60,7 +58,7 @@ def clean_data(df):
     
     # Select Relevant Columns
     selected = [
-        "Quarter", "town", "Flat_Type", "Address",
+        "Year", "Month", "town", "Flat_Type", "Address",
         "Storey", "floor_area_sqm", "Remaining_Lease", "resale_price"
     ]
     df_clean = df_clean[selected].rename(columns={
@@ -70,4 +68,3 @@ def clean_data(df):
     })
 
     return df_clean
-
