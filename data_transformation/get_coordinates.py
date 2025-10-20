@@ -4,8 +4,8 @@ import requests
 import pandas as pd
 
 # OneMap API Configuration
-EMAIL = "hazeltio@u.nus.edu"   # Enter your OneMaps API Email
-PASSWORD = "Hazel@onemap1" # Enter your OneMaps API Password
+EMAIL = None   # Enter your OneMaps API Email
+PASSWORD = None # Enter your OneMaps API Password
 TOKEN_URL = "https://www.onemap.gov.sg/api/auth/post/getToken"
 SEARCH_URL = "https://www.onemap.gov.sg/api/common/elastic/search"
 
