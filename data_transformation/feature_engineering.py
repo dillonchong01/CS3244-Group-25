@@ -6,8 +6,8 @@ from tqdm import tqdm
 from haversine import haversine, Unit
 
 # OneMap API Configuration
-EMAIL = None # Enter your OneMaps API Email
-PASSWORD = None # Enter your OneMaps API Password
+EMAIL = "hazeltio@u.nus.edu"   # Enter your OneMaps API Email
+PASSWORD = "Hazel@onemap1" # Enter your OneMaps API Password
 TOKEN_URL = "https://www.onemap.gov.sg/api/auth/post/getToken"
 ROUTE_URL = "https://www.onemap.gov.sg/api/public/routingsvc/route"
 

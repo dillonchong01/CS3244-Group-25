@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from data_cleaning import clean_data
+from data_cleaning import clean_data, remove_outliers
 
 """
 Pipeline can be used when there are updates to Raw Data or HDB Features
@@ -22,6 +22,7 @@ if __name__ == "__main__":
     # Convert Raw Data to Clean Data
     df_raw = pd.read_csv(RAWDATA_CSV)
     df_clean = clean_data(df_raw)
+    df_clean = remove_outliers(df_clean, ['Price'])
     df_clean.to_csv(CLEANDATA_CSV, index=False)
 
     # Add Engineered Features (based on Address) to obtain Final Dataset
