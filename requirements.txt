@@ -7,3 +7,5 @@ tqdm==4.67.1
 haversine==2.9.0
 matplotlib
 seaborn
+tensorflow
+scikeras
