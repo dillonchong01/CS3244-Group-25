@@ -1,16 +1,5 @@
 import pandas as pd
 
-# Flat Type Mapping
-FLAT_TYPE_MAP = {
-    "1 ROOM": 0,
-    "2 ROOM": 1,
-    "3 ROOM": 2,
-    "4 ROOM": 3,
-    "5 ROOM": 4,
-    "EXECUTIVE": 5,
-    "MULTI-GENERATION": 6,
-}
-
 # Clean Data
 def clean_data(df):
     """
@@ -21,8 +10,7 @@ def clean_data(df):
       2. Extract lower bound of 'storey_range' into 'Storey'.
       3. Split 'month' into 'Year' and 'Month'.
       4. Convert 'remaining_lease' into fractional years.
-      5. Map 'flat_type' to ordered integer categories.
-      6. Select and rename relevant columns.
+      5. Select and rename relevant columns.
 
     Args:
         df: Raw DataFrame containing HDB resale data.
@@ -53,12 +41,9 @@ def clean_data(df):
         lambda x: round(int(x.split()[0]) + (int(x.split()[2]) if "month" in x else 0)/12, 3)
         )
     
-    # Convert Flat Type to Ordered Factor
-    df_clean["Flat_Type"] = df_clean["flat_type"].map(FLAT_TYPE_MAP)
-    
     # Select Relevant Columns
     selected = [
-        "Year", "Month", "town", "Flat_Type", "Address",
+        "Year", "Month", "town", "Address",
         "Storey", "floor_area_sqm", "Remaining_Lease", "resale_price"
     ]
     df_clean = df_clean[selected].rename(columns={

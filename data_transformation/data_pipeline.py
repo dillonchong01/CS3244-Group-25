@@ -31,5 +31,8 @@ if __name__ == "__main__":
 
     # Classify Towns into Mature/Non-Mature Estate
     final_df["Mature"] = final_df["Town"].isin(MATURE_ESTATES)
+
+    # Drop Town and Address Columns
+    final_df = final_df.drop(columns=["Town", "Address"])
     
     final_df.to_csv(FINALDATA_CSV, index=False)
