@@ -10,9 +10,9 @@ This evaluation compares the performance of different machine learning models fo
 
 **Performance Metrics:**
 
-- MAE (Mean Absolute Error): 57,887.12
-- RMSE (Root Mean Squared Error): 74,851.41
-- R² Score: 0.79933
+- MAE (Mean Absolute Error): 58,681.57
+- RMSE (Root Mean Squared Error): 75,639.99
+- R² Score: 0.79508
 
 **Strengths:**
 
@@ -53,9 +53,9 @@ This evaluation compares the performance of different machine learning models fo
 
 **Performance Metrics:**
 
-- MAE: 25,831.06
-- RMSE: 38,243.07
-- R² Score: 0.95665
+- MAE: 25,164.65
+- RMSE: 36,515.60
+- R² Score: 0.95224
 
 **Strengths:**
 
@@ -74,9 +74,9 @@ This evaluation compares the performance of different machine learning models fo
 
 **Performance Metrics:**
 
-- MAE: 22,707.33
-- RMSE: 32,223.05
-- R² Score: 0.96923
+- MAE: 22,247.17
+- RMSE: 31,081.71
+- R² Score: 0.96540
 
 **Strengths:**
 
@@ -111,9 +111,9 @@ This evaluation compares the performance of different machine learning models fo
 
 **Performance Metrics:**
 
-- MAE: 57,887.58
-- RMSE: 74,851.32
-- R² Score: 0.79933
+- MAE: 58,681.28
+- RMSE: 75,640.09
+- R² Score: 0.79508
 
 **Strengths:**
 
@@ -132,22 +132,22 @@ This evaluation compares the performance of different machine learning models fo
 
 | Model            | MAE       | RMSE      | R² Score | Training Time | Interpretability |
 | ---------------- | --------- | --------- | -------- | ------------- | ---------------- |
-| Ridge Regression | 57,887.12 | 74,851.41 | 0.79933  | Fast          | High             |
+| Ridge Regression | 58,681.57 | 75,639.99 | 0.79508  | Fast          | High             |
 | KNN              | 34,143.04 | 48,945.76 | 0.914    | Fast          | Medium           |
-| Random Forest    | 25,831.06 | 38,243.07 | 0.95665  | Medium        | Medium           |
-| XGBoost          | 22,707.33 | 32,223.05 | 0.96923  | Slow          | Low              |
+| Random Forest    | 25,164.65 | 36,515.60 | 0.95224  | Medium        | Medium           |
+| XGBoost          | 22,247.17 | 31,081.71 | 0.96540  | Slow          | Low              |
 | Neural Network   | 46,103.91 | 64,598.71 | 0.851    | Slow          | Low              |
-| Lasso Regression | 57,887.58 | 74,851.32 | 0.79933  | Fast          | High             |
+| Lasso Regression | 58,681.28 | 75,640.09 | 0.79508  | Fast          | High             |
 
 ## Best Performing Model
 
 **XGBoost** emerged as the best performing model with:
 
-- Lowest MAE: 22,707.33
-- Lowest RMSE: 32,223.05
-- Highest R² Score: 0.96923
+- Lowest MAE: 22,247.17
+- Lowest RMSE: 31,081.71
+- Highest R² Score: 0.96540
 
-This model achieved the best balance between predictive accuracy and generalization capability, as validated through cross-validation testing. XGBoost explains approximately 97% of the variance in HDB resale prices, with an average prediction error of about $22,700.
+This model achieved the best balance between predictive accuracy and generalization capability, as validated through cross-validation testing. XGBoost explains approximately 96.5% of the variance in HDB resale prices, with an average prediction error of about $22,247.
 
 ## Research Question Analysis
 
@@ -264,9 +264,9 @@ Our analysis successfully developed robust predictive models for HDB resale pric
 
 **Key Performance Summary:**
 
-- **Best Model:** XGBoost with R² = 0.96923
-- **Runner-up:** Random Forest with R² = 0.95665
+- **Best Model:** XGBoost with R² = 0.96540
+- **Runner-up:** Random Forest with R² = 0.95224
 - **Most Interpretable:** Ridge/Lasso Regression for policy insights
 - **Most Practical:** KNN for quick estimations with R² = 0.914
 
-The significant performance gap between XGBoost (MAE: $22,707) and simpler models like Ridge Regression (MAE: $57,887) demonstrates the value of ensemble methods for complex real estate prediction tasks, while still maintaining reasonable interpretability through feature importance analysis.
+The significant performance gap between XGBoost (MAE: $22,247) and simpler models like Ridge Regression (MAE: $58,682) demonstrates the value of ensemble methods for complex real estate prediction tasks, while still maintaining reasonable interpretability through feature importance analysis.
