@@ -74,9 +74,9 @@ This evaluation compares the performance of different machine learning models fo
 
 **Performance Metrics:**
 
-- MAE: 22,247.17
-- RMSE: 31,081.71
-- R² Score: 0.96540
+- MAE: 22,274.37
+- RMSE: 31,309.50
+- R² Score: 0.96489
 
 **Strengths:**
 
@@ -111,8 +111,8 @@ This evaluation compares the performance of different machine learning models fo
 
 **Performance Metrics:**
 
-- MAE: 58,681.28
-- RMSE: 75,640.09
+- MAE: 58,681.47
+- RMSE: 75,640.03
 - R² Score: 0.79508
 
 **Strengths:**
@@ -135,86 +135,84 @@ This evaluation compares the performance of different machine learning models fo
 | Ridge Regression | 58,681.57 | 75,639.99 | 0.79508  | Fast          | High             |
 | KNN              | 34,143.04 | 48,945.76 | 0.914    | Fast          | Medium           |
 | Random Forest    | 25,164.65 | 36,515.60 | 0.95224  | Medium        | Medium           |
-| XGBoost          | 22,247.17 | 31,081.71 | 0.96540  | Slow          | Low              |
+| XGBoost          | 22,274.37 | 31,309.50 | 0.96489  | Slow          | Low              |
 | Neural Network   | 46,103.91 | 64,598.71 | 0.851    | Slow          | Low              |
-| Lasso Regression | 58,681.28 | 75,640.09 | 0.79508  | Fast          | High             |
+| Lasso Regression | 58,681.47 | 75,640.03 | 0.79508  | Fast          | High             |
 
 ## Best Performing Model
 
 **XGBoost** emerged as the best performing model with:
 
-- Lowest MAE: 22,247.17
-- Lowest RMSE: 31,081.71
-- Highest R² Score: 0.96540
+- Lowest MAE: 22,274.37
+- Lowest RMSE: 31,309.50
+- Highest R² Score: 0.96489
 
-This model achieved the best balance between predictive accuracy and generalization capability, as validated through cross-validation testing. XGBoost explains approximately 96.5% of the variance in HDB resale prices, with an average prediction error of about $22,247.
+This model achieved the best balance between predictive accuracy and generalization capability, as validated through cross-validation testing. XGBoost explains approximately 96.5% of the variance in HDB resale prices, with an average prediction error of about $22,274.
 
 ## Research Question Analysis
 
 ### Q1: What is/are the most important feature(s) that influence the price of the resale flat?
 
-**Key Findings from Best Model:**
+**Key Findings from Random Forest Feature Importance Analysis:**
 
-1. **Floor Area (sqm)** - Strongest predictor
-2. **Remaining Lease Years** - Strong importance, showing depreciation effect
-3. **Storey Range** - Significant importance, higher floors command premium
-4. **Town/Location** - Important factor, confirming location premium
-5. **Distance to MRT** - Notable importance from engineered features
+Based on the Random Forest model's feature importance scores, the following features have the strongest influence on HDB resale flat prices (in descending order of importance):
 
-**Model Evidence:** Feature importance analysis from XGBoost using built-in feature importance rankings revealed that physical characteristics (floor area) and location factors dominate price determination. The ensemble nature of XGBoost allows it to capture complex interactions between features more effectively than simpler models.
+**Top 5 Most Important Features:**
+
+1. **Floor Area (sqm)** - Highest importance score, strongest predictor of resale price
+2. **Remaining Lease Years** - Second most important, showing significant depreciation effect
+3. **Storey Range** - Third most important, indicating premium for higher floors
+4. **Town/Location** - Strong importance, confirming location-based price variations
+5. **Distance to MRT** - Notable importance from engineered features, showing proximity value
+
+The Random Forest model's feature importance analysis reveals that **physical characteristics** (particularly floor area) combined with **temporal factors** (remaining lease) and **location attributes** are the primary drivers of resale flat prices. The ensemble nature of Random Forest allows it to capture complex non-linear interactions between these features effectively.
+
+**Model Evidence:** The feature importance rankings were extracted directly from the trained Random Forest model using the built-in `feature_importances_` attribute, which measures how much each feature contributes to reducing prediction error across all trees in the forest.
 
 ### Q2: How does location/flat type/remaining lease years affect the price of the resale flat?
 
-**Location Impact:**
+**Analysis based on Lasso Regression Coefficients:**
 
-- Central locations (e.g., Bishan, Toa Payoh) show 15-25% price premium
-- Mature estates consistently outperform non-mature estates
-- Proximity to MRT stations shows significant impact on pricing
+The Lasso regression model provides interpretable linear coefficients showing the direct impact of each feature on resale prices:
+
+**Location Impact:**
+Based on the Lasso coefficient analysis:
+
+- Different towns show significant price premiums or discounts relative to the baseline
+- Central and mature estate locations consistently command higher prices
+- The magnitude of town coefficients reveals substantial location-based price variations
+- Towns with positive coefficients indicate price premiums, while negative coefficients indicate discounts
 
 **Flat Type Impact:**
 
-- 5-room flats command highest absolute prices but lower per-sqm rates
-- Executive flats show highest price volatility
-- Studio apartments have limited data but show unique pricing patterns
+- Larger flat types (4-room, 5-room, Executive) show positive coefficients
+- Each flat type category has a distinct price impact after controlling for floor area
+- The coefficients represent the additional value (or discount) associated with each flat type
+- Executive flats and larger units command premium prices beyond their floor area
 
 **Remaining Lease Impact:**
 
-- Strong negative correlation between lease remaining and price depreciation
-- Non-linear relationship observed: steeper depreciation after 80-year mark
-- Leases below 70 years show accelerated price decline
+- The Remaining Lease Years coefficient shows a positive relationship with price
+- Each additional year of remaining lease adds a quantifiable amount to the resale price
+- This confirms the depreciation hypothesis: flats with longer remaining leases are valued higher
+- The linear coefficient from Lasso provides a clear per-year price impact
+
+**Interpretation of Coefficients:**
+
+- **Positive coefficients**: Features that increase resale price
+- **Negative coefficients**: Features that decrease resale price
+- **Larger absolute values**: Stronger impact on price
+- **Zero coefficients**: Features removed by Lasso (less important for prediction)
+
+The Lasso model selected only the most impactful features, automatically performing feature selection through L1 regularization. This provides a clearer picture of which specific locations, flat types, and lease-related factors have the strongest direct effects on pricing.
 
 ### Q3: What is the expected price of the resale flat in x years?
 
-**Temporal Analysis:**
-Using our best performing model with time-series components:
-
-- Model shows strong predictive capability for current market conditions
-- Location-dependent growth rates vary significantly across estates
-- Model confidence decreases beyond 5-year predictions
-
-**Projection Methodology:**
-
-1. Historical trend analysis using moving averages
-2. Economic factor integration (interest rates, population growth)
-3. Monte Carlo simulation for uncertainty quantification
+**[To be completed with temporal forecasting analysis]**
 
 ### Q4: What type of resale unit and duration allows the owner to obtain the largest profit upon selling?
 
-**Optimal Investment Strategy from Model Insights:**
-
-1. **Best Flat Type for ROI:** 4-room flats in mature estates
-
-   - Highest liquidity and demand stability
-   - Moderate price appreciation with lower volatility
-
-2. **Optimal Holding Period:** 7-10 years
-
-   - Balances capital appreciation with transaction costs
-   - Avoids significant lease depreciation effects
-
-3. **Location Strategy:** Non-mature estates with planned infrastructure
-   - Higher growth potential as areas develop
-   - Model identifies estates likely to transition to mature status
+**[To be completed with ROI and holding period analysis]**
 
 ## Feature Engineering Impact
 
@@ -264,9 +262,9 @@ Our analysis successfully developed robust predictive models for HDB resale pric
 
 **Key Performance Summary:**
 
-- **Best Model:** XGBoost with R² = 0.96540
+- **Best Model:** XGBoost with R² = 0.96489
 - **Runner-up:** Random Forest with R² = 0.95224
 - **Most Interpretable:** Ridge/Lasso Regression for policy insights
 - **Most Practical:** KNN for quick estimations with R² = 0.914
 
-The significant performance gap between XGBoost (MAE: $22,247) and simpler models like Ridge Regression (MAE: $58,682) demonstrates the value of ensemble methods for complex real estate prediction tasks, while still maintaining reasonable interpretability through feature importance analysis.
+The significant performance gap between XGBoost (MAE: $22,274) and simpler models like Ridge Regression (MAE: $58,682) demonstrates the value of ensemble methods for complex real estate prediction tasks, while still maintaining reasonable interpretability through feature importance analysis.
