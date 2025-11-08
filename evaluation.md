@@ -74,9 +74,9 @@ This evaluation compares the performance of different machine learning models fo
 
 **Performance Metrics:**
 
-- MAE: 22,247.17
-- RMSE: 31,081.71
-- R² Score: 0.96540
+- MAE: 22,274.37
+- RMSE: 31,309.50
+- R² Score: 0.96489
 
 **Strengths:**
 
@@ -111,8 +111,8 @@ This evaluation compares the performance of different machine learning models fo
 
 **Performance Metrics:**
 
-- MAE: 58,681.28
-- RMSE: 75,640.09
+- MAE: 58,681.47
+- RMSE: 75,640.03
 - R² Score: 0.79508
 
 **Strengths:**
@@ -135,19 +135,19 @@ This evaluation compares the performance of different machine learning models fo
 | Ridge Regression | 58,681.57 | 75,639.99 | 0.79508  | Fast          | High             |
 | KNN              | 34,143.04 | 48,945.76 | 0.914    | Fast          | Medium           |
 | Random Forest    | 25,164.65 | 36,515.60 | 0.95224  | Medium        | Medium           |
-| XGBoost          | 22,247.17 | 31,081.71 | 0.96540  | Slow          | Low              |
+| XGBoost          | 22,274.37 | 31,309.50 | 0.96489  | Slow          | Low              |
 | Neural Network   | 46,103.91 | 64,598.71 | 0.851    | Slow          | Low              |
-| Lasso Regression | 58,681.28 | 75,640.09 | 0.79508  | Fast          | High             |
+| Lasso Regression | 58,681.47 | 75,640.03 | 0.79508  | Fast          | High             |
 
 ## Best Performing Model
 
 **XGBoost** emerged as the best performing model with:
 
-- Lowest MAE: 22,247.17
-- Lowest RMSE: 31,081.71
-- Highest R² Score: 0.96540
+- Lowest MAE: 22,274.37
+- Lowest RMSE: 31,309.50
+- Highest R² Score: 0.96489
 
-This model achieved the best balance between predictive accuracy and generalization capability, as validated through cross-validation testing. XGBoost explains approximately 96.5% of the variance in HDB resale prices, with an average prediction error of about $22,247.
+This model achieved the best balance between predictive accuracy and generalization capability, as validated through cross-validation testing. XGBoost explains approximately 96.5% of the variance in HDB resale prices, with an average prediction error of about $22,274.
 
 ## Research Question Analysis
 
@@ -264,9 +264,9 @@ Our analysis successfully developed robust predictive models for HDB resale pric
 
 **Key Performance Summary:**
 
-- **Best Model:** XGBoost with R² = 0.96540
+- **Best Model:** XGBoost with R² = 0.96489
 - **Runner-up:** Random Forest with R² = 0.95224
 - **Most Interpretable:** Ridge/Lasso Regression for policy insights
 - **Most Practical:** KNN for quick estimations with R² = 0.914
 
-The significant performance gap between XGBoost (MAE: $22,247) and simpler models like Ridge Regression (MAE: $58,682) demonstrates the value of ensemble methods for complex real estate prediction tasks, while still maintaining reasonable interpretability through feature importance analysis.
+The significant performance gap between XGBoost (MAE: $22,274) and simpler models like Ridge Regression (MAE: $58,682) demonstrates the value of ensemble methods for complex real estate prediction tasks, while still maintaining reasonable interpretability through feature importance analysis.
