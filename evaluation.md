@@ -212,7 +212,61 @@ The Lasso model selected only the most impactful features, automatically perform
 
 ### Q4: What type of resale unit and duration allows the owner to obtain the largest profit upon selling?
 
-**[To be completed with ROI and holding period analysis]**
+**Analysis Methodology:**
+
+To answer this question, we used the XGBoost model (our best-performing model) to simulate future resale prices and calculate potential profits for different unit types and holding durations. Due to data limitations on original purchase prices, we assumed owners purchased their units as resale flats and calculated profit as: **Predicted Resale Value - Initial Purchased Resale Value**.
+
+**Key Assumptions:**
+
+1. Minimum resaleable lease set at 20 years (below which resale becomes impractical)
+2. Holding durations analyzed: 1-15 years
+3. Depreciation effects already captured in the XGBoost model training data (2017-2024)
+4. Unit types categorized by: Estate maturity, Storey level, and Floor area
+
+**Findings:**
+
+**Optimal Holding Duration:**
+
+The analysis reveals that **8 years** is the optimal holding period for maximizing profit. After this point, price appreciation plateaus, suggesting diminishing returns from longer holding periods.
+
+**Estate Maturity Impact:**
+
+- **Non-mature estates** consistently yield higher profits compared to mature estates across all holding durations
+- This suggests stronger appreciation potential in developing areas with improving infrastructure
+
+**Storey Level Impact:**
+
+The middle-range storey levels perform best:
+
+1. **11-15 storeys** and **16-20 storeys**: Highest profit margins
+2. **Lower levels (1-3, 4-6, 7-10)**: Moderate profits
+3. **High levels (21-30, 30+)**: Lowest profit margins
+
+This indicates strong market preference for mid-level units that balance accessibility with views.
+
+**Floor Area Impact:**
+
+Analyzing profit percentage by floor area reveals:
+
+- **80-120 sqm units**: Highest profit percentages (~34-35% after 10 years)
+  - Optimal size range for families
+  - Strong resale demand
+  - Best balance of affordability and spaciousness
+- **<60 sqm units**: Lower profit percentages (~29% max)
+  - Lower base values limit absolute appreciation
+  - Smaller market segment
+- **>160 sqm units**: Lowest returns (~19%)
+  - Luxury/niche segment with limited buyer pool
+  - High absolute prices but lower percentage returns
+
+**Optimal Investment Profile:**
+
+To maximize profit upon resale, homeowners should target:
+
+- **Holding Duration:** 8 years
+- **Estate Type:** Non-mature estates
+- **Floor Area:** 80-120 sqm
+- **Storey Level:** 11-15 storeys
 
 ## Feature Engineering Impact
 
