@@ -208,11 +208,150 @@ The Lasso model selected only the most impactful features, automatically perform
 
 ### Q3: What is the expected price of the resale flat in x years?
 
-**[To be completed with temporal forecasting analysis]**
+**Analysis Methodogy**
+To predict future HDB prices, we first trained two models (linear regression and random forest) on past data (2017-early 2024) and predicted on 'future' data (late 2024-2025). 
+
+The two models were evaluated, the performance metrics are as follows:
+- Linear Regression:
+  - MAE: 60805.22
+  - RMSE: 80252.47
+  - R2: 0.747
+
+- Random Forest:
+  - MAE: 53219.98
+  - RMSE: 68633.35
+  - R2: 0.814
+
+Random Forest performs better at predicting future prices. We proceeded with illustratng the prediction of future prices (2025-2045) using the Random Forest model. Visualisations was done with flats that start off with a 99 year lease in 2025, to simulate the resale prices of newly-bought flats in the next 20 years. 
+
+**Configuration Design**
+Representative flat configurations were created across multiple dimensions:
+1. Flat Type. Floor area was used to represent each flat type: 1 Room (30 sqm) to 3Gen/Executive flats(160 sqm)
+2. Storey level. Low (5th floor), Medium (15th floor) and High (30th floor)
+3. Remaining lease. Short (50 years), Medium (70 years) and Long (99 years)
+
+This resulted in a total of 54 combinations of flats
+
+**Temporal Feature Adjustment**
+'Year' and 'Remaining_Lease' were adjusted accordingly for each year ahead (0-20 years)
+
+**Key Assumptions**
+1. Flats have been categorised by storey and floor area (1, 2, 3, 4 and 5 Room flats)
+2. Price depreciation follows the patterns observed in historical data, which has been used to train the RF model
+3. Market trends continue
+4. Example flats are generated with mean distances to MRT and malls from the data set, and are in non-mature estates, within 1km of a primary school
+
+**Limitations**
+- Model reliability decreases with increasing years into the future, wherer extrapolation from training increases
+
+**Findings**
+1. Floor area emerges as the dominant factor in both current valuation and future price trajectories, whereas storey levels have a modest impact on prices. 
+- **At Year = 0 (2025)**, 
+| Flat Type | Mean Price |
+|-----------|------------|
+| 1-Room | $273,063 |
+| 2-Room | $337,245 |
+| 3-Room | $495,800 |
+| 4-Room | $528,965 |
+| 5-Room | $655,943 |
+
+- Clear price heirarchy based on flat size. 5 room flats commanding highest prices (>$650k) and 1-room flats commanding the lowest prices (<$275k).
+- Price increases are non-linear with size. The jump from 4 room to 5 room ($127k) is much greater than the price jump from 1 room to 2 room flats ($64k)
+
+| Storey Level | Mean Price | 
+|--------------|------------|
+| Low (5th floor) | $502,703 |
+| Mid (15th floor) | $531,957 |
+| High (30th floor) | $533,454 |
+
+- Prices deviate about $30k between low and medium storeys, and the small difference between medium and high storeys suggests diminishing returns for very high floors. 
+
+| Remaining Lease | Mean Price |
+|-----------------|------------|
+| Short (50 years) | $468,502 |
+| Medium (70 years) | $509,709 |
+| Long (99 years) | $589,903 |
+
+- There is a strong positive correlation between remaining lease and price. Long lease commands on average $121k more than short lease, suggesting that lease periods greatly affects market value.
+
+**Key Insight**: 
+- While higher storeys are more valuable, the effect is much smaller than floor area. Hence for investment purposes, flat size matters more than storey level
+
+Insignts from visualizaition:
+- Flat prices are generally stagnant from 0-5 years ahead, likely due to the 5 year minimum occupation period (MOP) of flats. 
+- All flat types experience a sharp drop around the year 12, which may be a reflection of lease decay acceleration.
+- Price stability differs:
+  - 5 room flats remain the most resilient after the major dip whereas 4 and 3 room flats continue to decline
+
+**Combined Effects: Optimal Configurations**
+Based on flat size and storey height, the model predicts that larger flats on higher floors provide the strongest 10-year performance.  
+Top performing combinations are:
+- 5 room, High Storey
+  - Current ~$810k to ~$770k in 10 years
+
+- 4 room, High/Mid Storey
+  - Current ~$650k to ~$630k in 10 years
+
+These flats perfom well as the medium/larger sizes are more appealing, with a larger resale market for such flats. The storey premium of higher storey flats is also able to offset lease decay
+
 
 ### Q4: What type of resale unit and duration allows the owner to obtain the largest profit upon selling?
 
-**[To be completed with ROI and holding period analysis]**
+**Analysis Methodology:**
+
+To answer this question, we used the XGBoost model (our best-performing model) to simulate future resale prices and calculate potential profits for different unit types and holding durations. Due to data limitations on original purchase prices, we assumed owners purchased their units as resale flats and calculated profit as: **Predicted Resale Value - Initial Purchased Resale Value**.
+
+**Key Assumptions:**
+
+1. Minimum resaleable lease set at 20 years (below which resale becomes impractical)
+2. Holding durations analyzed: 1-15 years
+3. Depreciation effects already captured in the XGBoost model training data (2017-2024)
+4. Unit types categorized by: Estate maturity, Storey level, and Floor area
+
+**Findings:**
+
+**Optimal Holding Duration:**
+
+The analysis reveals that **8 years** is the optimal holding period for maximizing profit. After this point, price appreciation plateaus, suggesting diminishing returns from longer holding periods.
+
+**Estate Maturity Impact:**
+
+- **Non-mature estates** consistently yield higher profits compared to mature estates across all holding durations
+- This suggests stronger appreciation potential in developing areas with improving infrastructure
+
+**Storey Level Impact:**
+
+The middle-range storey levels perform best:
+
+1. **11-15 storeys** and **16-20 storeys**: Highest profit margins
+2. **Lower levels (1-3, 4-6, 7-10)**: Moderate profits
+3. **High levels (21-30, 30+)**: Lowest profit margins
+
+This indicates strong market preference for mid-level units that balance accessibility with views.
+
+**Floor Area Impact:**
+
+Analyzing profit percentage by floor area reveals:
+
+- **80-120 sqm units**: Highest profit percentages (~34-35% after 10 years)
+  - Optimal size range for families
+  - Strong resale demand
+  - Best balance of affordability and spaciousness
+- **<60 sqm units**: Lower profit percentages (~29% max)
+  - Lower base values limit absolute appreciation
+  - Smaller market segment
+- **>160 sqm units**: Lowest returns (~19%)
+  - Luxury/niche segment with limited buyer pool
+  - High absolute prices but lower percentage returns
+
+**Optimal Investment Profile:**
+
+To maximize profit upon resale, homeowners should target:
+
+- **Holding Duration:** 8 years
+- **Estate Type:** Non-mature estates
+- **Floor Area:** 80-120 sqm
+- **Storey Level:** 11-15 storeys
 
 ## Feature Engineering Impact
 
