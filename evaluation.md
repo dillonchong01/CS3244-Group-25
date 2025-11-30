@@ -287,10 +287,10 @@ Insignts from visualizaition:
 Based on flat size and storey height, the model predicts that larger flats on higher floors provide the strongest 10-year performance.  
 Top performing combinations are:
 - 5 room, High Storey
-  - Current ~$810k to ~$770k in 10 years
+  - Current ~$810k to **~$770k** in 10 years
 
 - 4 room, High/Mid Storey
-  - Current ~$650k to ~$630k in 10 years
+  - Current ~$650k to **~$630k** in 10 years
 
 These flats perfom well as the medium/larger sizes are more appealing, with a larger resale market for such flats. The storey premium of higher storey flats is also able to offset lease decay
 
